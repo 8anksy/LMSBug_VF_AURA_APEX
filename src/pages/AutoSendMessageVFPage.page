@@ -1,0 +1,44 @@
+<apex:page >
+    <!-- Begin Default Content REMOVE THIS -->
+    <h1>Lightning Message Services - Execution of Aura JS "halts" on Aura enabled callouts.</h1>
+    <div>
+        <p>Clicking the button below will send a message to the Aura Component using Lightning Message Service (LMS)</p>
+        <p>The Aura component should then immediately make an auraEnabled call to Apex.</p>
+        <br/>
+        
+        <p><strong>Behavior:</strong></p>
+        <ul>
+            <li><p>Expected: Aura actions should execute uninterrupted</p></li>
+            <li><p>Actual: Aura actions seems to be paused. No errors are thrown. Can resume with user interaction.</p></li>
+            <li>
+                <p>Workaround: Resizing the browser window and changing tabs seems to "unblock" the Aura action.</p>
+                <p>I've been able to keep the script frozen for up a minute and then performing the workaround.</p>
+            </li>
+        </ul>
+        
+        <p><strong>BEFORE CLICKING:</strong></p>
+        <ol>
+            <li><p>Ensure that you have the browser console window open.</p></li>
+            <li>
+                <p>Wait until LMS is connected before clicking. See console output for status.</p>
+                <p>(Lightning Message Service enabled: true)</p>
+            </li>
+            <li><p>Sometimes this happens on the first click. Most times it happens on second click.</p></li>
+            <li><p>The enqueued actions can stack if the button is clicked multiple times. The actions will build up as they freeze and then will all finish at the same time when the workaround above is applied.</p></li>
+        </ol>
+        <button onclick="publishMessage()">Notify Aura Component</button>
+        
+    </div>
+    <script> 
+        // Load the MessageChannel token in a variable
+        var lmsDemoChannel = "{!$MessageChannel.VRBMessageChannel__c}";
+        var subscriptionToMC;
+       function publishMessage() {
+            const payload = {
+                nodeTitle: "VF",
+                data: "makeApexCall"
+            };
+            sforce.one.publish(lmsDemoChannel, payload);
+        }
+    </script>
+</apex:page>

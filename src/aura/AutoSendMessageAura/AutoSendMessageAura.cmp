@@ -1,6 +1,6 @@
 <aura:component controller="TestLMSController" implements="flexipage:availableForAllPageTypes" access="global" >
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <lightning:messageChannel type="jxbffbase__VRBMessageChannel__c" aura:id="testChannel" onMessage="{!c.handleVFMessage}" scope="APPLICATION" />
+    <lightning:messageChannel type="VRBMessageChannel__c" aura:id="testChannel" onMessage="{!c.handleVFMessage}" scope="APPLICATION" />
     
     <aura:attribute name="showLogOnUI" type="Boolean" access="private" default="false" />
     <aura:attribute name="showLogInConsole" type="Boolean" access="private" default="true" />
