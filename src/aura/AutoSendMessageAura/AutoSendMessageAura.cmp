@@ -1,0 +1,17 @@
+<aura:component controller="TestLMSController" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:messageChannel type="jxbffbase__VRBMessageChannel__c" aura:id="testChannel" onMessage="{!c.handleVFMessage}" scope="APPLICATION" />
+    
+    <aura:attribute name="showLogOnUI" type="Boolean" access="private" default="false" />
+    <aura:attribute name="showLogInConsole" type="Boolean" access="private" default="true" />
+    <aura:attribute name="logItems" type="String[]" access="private" default="[]" />
+    
+    
+    <lightning:card title="Test Aura Component">
+        <div class="slds-card_body slds-card__body_inner">
+            <p class="slds-p-around_small">This component receives a message from the VF Page and immediately makes a call to an Aura Enabled Method.</p>
+            <p class="slds-p-around_small">The component will frequently "freeze" after the apex action is enqueued. (See "Apex call enqueued..." in console output)</p>
+        </div>
+    </lightning:card>
+	
+</aura:component>
